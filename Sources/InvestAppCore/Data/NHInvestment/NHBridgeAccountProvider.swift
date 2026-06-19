@@ -12,10 +12,7 @@ import Foundation
 /// `bridgeBaseURL` 을 주입하면 향후 백엔드 연동을 끼워 넣을 수 있도록 시그니처를 열어둔다.
 public struct NHBridgeAccountProvider: BrokerAccountProviding {
 
-    /// 개념상 한국투자증권(KIS)을 NH 대체 후보로 두고 있어, NH 자체 브로커 케이스가
-    /// 도메인 enum 에 없으므로 `.kis` 를 임시 식별자로 사용한다.
-    /// (NH 전용 브릿지가 실제 연동되면 별도 Broker 케이스 추가를 검토)
-    public var broker: Broker { .kis }
+    public var broker: Broker { .nhInvestment }
 
     /// 향후 브릿지 백엔드 / 집계 API 의 기준 URL. 현재는 사용되지 않는다.
     private let bridgeBaseURL: URL?

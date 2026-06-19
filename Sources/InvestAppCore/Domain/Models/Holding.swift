@@ -4,6 +4,7 @@ public enum Broker: String, Codable, Sendable, CaseIterable {
     case upbit
     case tossSecurities
     case kis            // 한국투자증권 (NH 대체 후보)
+    case nhInvestment   // NH투자증권 — iOS 직접연동 불가, 브릿지 백엔드 전제(placeholder)
 }
 
 public enum Market: String, Codable, Sendable {
