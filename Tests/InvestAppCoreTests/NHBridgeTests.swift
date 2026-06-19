@@ -31,6 +31,6 @@ final class NHBridgeTests: XCTestCase {
 
     func test_conformsToBrokerAccountProviding() {
         let provider: BrokerAccountProviding = NHBridgeAccountProvider()
-        XCTAssertEqual(provider.broker, .kis)
+        XCTAssertEqual(provider.broker, .nhInvestment)
     }
 }
