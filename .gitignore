@@ -1,3 +1,16 @@
+# === Secrets — NEVER commit API keys ===
+# API Access/Secret Key 는 Keychain 에만 저장한다. 어떤 설정 파일도 커밋 금지.
+Secrets.xcconfig
+*.secrets.plist
+Config/Secrets*
+.env
+.env.*
+
+# Swift Package Manager build / resolved
+.build/
+.swiftpm/
+DerivedData/
+
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
