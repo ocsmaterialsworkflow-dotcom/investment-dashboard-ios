@@ -362,7 +362,7 @@ final class AnalysisViewModelTests: XCTestCase {
         await vm.selectPeriod(.month)
 
         XCTAssertEqual(vm.selectedPeriod, .month)
-        XCTAssertEqual(vm.result?.profitKRW, 500_000, accuracy: 0.001)
+        XCTAssertEqual(vm.result?.profitKRW ?? 0, 500_000, accuracy: 0.001)
         XCTAssertFalse(vm.isLoading)
         XCTAssertNil(vm.error)
     }

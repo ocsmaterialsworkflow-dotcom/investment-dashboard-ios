@@ -125,7 +125,7 @@ final class BOKExchangeRateClientTests: XCTestCase {
             _ = try await client.latestUSDKRW()
             XCTFail("에러 엔벨로프는 에러를 던져야 함")
         } catch {
-            guard case NetworkError.requestFailed(let statusCode, let body) = error as? NetworkError else {
+            guard case NetworkError.requestFailed(let statusCode, let body)? = error as? NetworkError else {
                 return XCTFail("requestFailed 기대, 실제: \(error)")
             }
             XCTAssertEqual(statusCode, 0)
@@ -151,7 +151,7 @@ final class BOKExchangeRateClientTests: XCTestCase {
             _ = try await client.latestUSDKRW()
             XCTFail("유효한 row 없으면 에러를 던져야 함")
         } catch {
-            guard case NetworkError.decodingFailed = error as? NetworkError else {
+            guard case NetworkError.decodingFailed? = error as? NetworkError else {
                 return XCTFail("decodingFailed 기대, 실제: \(error)")
             }
         }
@@ -165,7 +165,7 @@ final class BOKExchangeRateClientTests: XCTestCase {
             _ = try await client.latestUSDKRW()
             XCTFail("잘못된 JSON 은 에러를 던져야 함")
         } catch {
-            guard case NetworkError.decodingFailed = error as? NetworkError else {
+            guard case NetworkError.decodingFailed? = error as? NetworkError else {
                 return XCTFail("decodingFailed 기대, 실제: \(error)")
             }
         }
@@ -224,7 +224,7 @@ final class FallbackExchangeRateClientTests: XCTestCase {
             _ = try await client.latestUSDKRW()
             XCTFail("result != success 이면 에러를 던져야 함")
         } catch {
-            guard case NetworkError.requestFailed = error as? NetworkError else {
+            guard case NetworkError.requestFailed? = error as? NetworkError else {
                 return XCTFail("requestFailed 기대, 실제: \(error)")
             }
         }
@@ -242,7 +242,7 @@ final class FallbackExchangeRateClientTests: XCTestCase {
             _ = try await client.latestUSDKRW()
             XCTFail("KRW 키 없으면 에러를 던져야 함")
         } catch {
-            guard case NetworkError.decodingFailed = error as? NetworkError else {
+            guard case NetworkError.decodingFailed? = error as? NetworkError else {
                 return XCTFail("decodingFailed 기대, 실제: \(error)")
             }
         }
@@ -256,7 +256,7 @@ final class FallbackExchangeRateClientTests: XCTestCase {
             _ = try await client.latestUSDKRW()
             XCTFail("잘못된 JSON 은 에러를 던져야 함")
         } catch {
-            guard case NetworkError.decodingFailed = error as? NetworkError else {
+            guard case NetworkError.decodingFailed? = error as? NetworkError else {
                 return XCTFail("decodingFailed 기대, 실제: \(error)")
             }
         }
@@ -297,7 +297,7 @@ final class ExchangeRateRepositoryTests: XCTestCase {
             XCTFail("primary, fallback 모두 실패하면 에러를 던져야 함")
         } catch {
             // 에러 타입은 fallback 이 던진 것
-            guard case NetworkError.transport = error as? NetworkError else {
+            guard case NetworkError.transport? = error as? NetworkError else {
                 return XCTFail("transport 에러 기대, 실제: \(error)")
             }
         }
