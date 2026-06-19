@@ -47,17 +47,17 @@ final class PortfolioWeightTests: XCTestCase {
         // 주식 = 1200 + 39000 = 40200, 코인 = 10000
         let stock = slices.first { $0.label == "주식" }
         let coinSlice = slices.first { $0.label == "코인" }
-        XCTAssertEqual(stock?.valueKRW, 40_200, accuracy: 0.001)
-        XCTAssertEqual(coinSlice?.valueKRW, 10_000, accuracy: 0.001)
+        XCTAssertEqual(stock?.valueKRW ?? 0, 40_200, accuracy: 0.001)
+        XCTAssertEqual(coinSlice?.valueKRW ?? 0, 10_000, accuracy: 0.001)
     }
 
     func test_country_dimension() {
         let sut = PortfolioWeightUseCase()
         let slices = sut.weights(accounts: accounts(), dimension: .country, usdToKrw: 1300)
         assertPercentSums100(slices)
-        XCTAssertEqual(slices.first { $0.label == "미국" }?.valueKRW, 39_000, accuracy: 0.001)
-        XCTAssertEqual(slices.first { $0.label == "한국" }?.valueKRW, 1_200, accuracy: 0.001)
-        XCTAssertEqual(slices.first { $0.label == "코인" }?.valueKRW, 10_000, accuracy: 0.001)
+        XCTAssertEqual(slices.first { $0.label == "미국" }?.valueKRW ?? 0, 39_000, accuracy: 0.001)
+        XCTAssertEqual(slices.first { $0.label == "한국" }?.valueKRW ?? 0, 1_200, accuracy: 0.001)
+        XCTAssertEqual(slices.first { $0.label == "코인" }?.valueKRW ?? 0, 10_000, accuracy: 0.001)
     }
 
     func test_account_dimension() {
@@ -66,7 +66,7 @@ final class PortfolioWeightTests: XCTestCase {
         XCTAssertEqual(slices.count, 2)
         assertPercentSums100(slices)
         // 증권 = 40200, 업비트 = 10000
-        XCTAssertEqual(slices.first { $0.label == "증권" }?.valueKRW, 40_200, accuracy: 0.001)
+        XCTAssertEqual(slices.first { $0.label == "증권" }?.valueKRW ?? 0, 40_200, accuracy: 0.001)
     }
 
     func test_exchange_dimension_usStockIsEtc() {

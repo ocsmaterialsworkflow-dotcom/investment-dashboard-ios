@@ -49,8 +49,8 @@ final class DividendUseCaseTests: XCTestCase {
         ]
         let monthly = sut.monthlyTotals(schedules, year: 2025, usdToKrw: 1300)
         XCTAssertEqual(monthly.count, 12)
-        XCTAssertEqual(monthly[3], 15_000, accuracy: 0.001)
-        XCTAssertEqual(monthly[9], 7_000, accuracy: 0.001)
+        XCTAssertEqual(monthly[3] ?? 0, 15_000, accuracy: 0.001)
+        XCTAssertEqual(monthly[9] ?? 0, 7_000, accuracy: 0.001)
         XCTAssertEqual(monthly[1], 0)
         // 합계 검증
         let sum = monthly.values.reduce(0, +)

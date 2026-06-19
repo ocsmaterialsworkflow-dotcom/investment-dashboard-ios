@@ -4,7 +4,7 @@ import XCTest
 // MARK: - Mock
 
 /// 요청별로 고정 응답을 돌려주는 목 HTTP 클라이언트 (환율 테스트 전용).
-private final class MockHTTPClient: HTTPClient, @unchecked Sendable {
+private final class RateMockHTTPClient: HTTPClient, @unchecked Sendable {
     var responder: (HTTPRequest) throws -> Data
     private(set) var sentRequests: [HTTPRequest] = []
     private let lock = NSLock()
@@ -55,7 +55,7 @@ final class BOKExchangeRateClientTests: XCTestCase {
         }
         """.data(using: .utf8)!
 
-        let mock = MockHTTPClient { _ in json }
+        let mock = RateMockHTTPClient { _ in json }
         let client = BOKExchangeRateClient(http: mock, apiKey: "TEST_KEY")
 
         let rate = try await client.latestUSDKRW()
@@ -77,7 +77,7 @@ final class BOKExchangeRateClientTests: XCTestCase {
         }
         """.data(using: .utf8)!
 
-        let mock = MockHTTPClient { _ in json }
+        let mock = RateMockHTTPClient { _ in json }
         let client = BOKExchangeRateClient(http: mock, apiKey: "TEST_KEY")
 
         let rate = try await client.latestUSDKRW()
@@ -95,7 +95,7 @@ final class BOKExchangeRateClientTests: XCTestCase {
         }
         """.data(using: .utf8)!
 
-        let mock = MockHTTPClient { _ in json }
+        let mock = RateMockHTTPClient { _ in json }
         let client = BOKExchangeRateClient(http: mock, apiKey: "MY_API_KEY")
 
         _ = try await client.latestUSDKRW()
@@ -118,7 +118,7 @@ final class BOKExchangeRateClientTests: XCTestCase {
         }
         """.data(using: .utf8)!
 
-        let mock = MockHTTPClient { _ in json }
+        let mock = RateMockHTTPClient { _ in json }
         let client = BOKExchangeRateClient(http: mock, apiKey: "BAD_KEY")
 
         do {
@@ -144,7 +144,7 @@ final class BOKExchangeRateClientTests: XCTestCase {
         }
         """.data(using: .utf8)!
 
-        let mock = MockHTTPClient { _ in json }
+        let mock = RateMockHTTPClient { _ in json }
         let client = BOKExchangeRateClient(http: mock, apiKey: "TEST_KEY")
 
         do {
@@ -158,7 +158,7 @@ final class BOKExchangeRateClientTests: XCTestCase {
     }
 
     func test_latestUSDKRW_invalidJSON_throwsDecodingFailed() async {
-        let mock = MockHTTPClient { _ in Data("not-json".utf8) }
+        let mock = RateMockHTTPClient { _ in Data("not-json".utf8) }
         let client = BOKExchangeRateClient(http: mock, apiKey: "TEST_KEY")
 
         do {
@@ -188,7 +188,7 @@ final class FallbackExchangeRateClientTests: XCTestCase {
         }
         """.data(using: .utf8)!
 
-        let mock = MockHTTPClient { _ in json }
+        let mock = RateMockHTTPClient { _ in json }
         let client = FallbackExchangeRateClient(http: mock)
 
         let rate = try await client.latestUSDKRW()
@@ -201,7 +201,7 @@ final class FallbackExchangeRateClientTests: XCTestCase {
         { "result": "success", "rates": { "KRW": 1300.0 } }
         """.data(using: .utf8)!
 
-        let mock = MockHTTPClient { _ in json }
+        let mock = RateMockHTTPClient { _ in json }
         let client = FallbackExchangeRateClient(http: mock)
 
         _ = try await client.latestUSDKRW()
@@ -217,7 +217,7 @@ final class FallbackExchangeRateClientTests: XCTestCase {
         { "result": "error", "rates": {} }
         """.data(using: .utf8)!
 
-        let mock = MockHTTPClient { _ in json }
+        let mock = RateMockHTTPClient { _ in json }
         let client = FallbackExchangeRateClient(http: mock)
 
         do {
@@ -235,7 +235,7 @@ final class FallbackExchangeRateClientTests: XCTestCase {
         { "result": "success", "rates": { "EUR": 0.92 } }
         """.data(using: .utf8)!
 
-        let mock = MockHTTPClient { _ in json }
+        let mock = RateMockHTTPClient { _ in json }
         let client = FallbackExchangeRateClient(http: mock)
 
         do {
@@ -249,7 +249,7 @@ final class FallbackExchangeRateClientTests: XCTestCase {
     }
 
     func test_latestUSDKRW_invalidJSON_throwsDecodingFailed() async {
-        let mock = MockHTTPClient { _ in Data("garbage".utf8) }
+        let mock = RateMockHTTPClient { _ in Data("garbage".utf8) }
         let client = FallbackExchangeRateClient(http: mock)
 
         do {

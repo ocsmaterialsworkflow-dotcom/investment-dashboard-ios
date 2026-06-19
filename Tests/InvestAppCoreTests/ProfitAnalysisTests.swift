@@ -32,7 +32,7 @@ final class ProfitAnalysisTests: XCTestCase {
         XCTAssertEqual(summary.breakdown.count, 2)
         // 내림차순 정렬: AAPL(13000) 먼저
         XCTAssertEqual(summary.breakdown.first?.symbol, "AAPL")
-        XCTAssertEqual(summary.breakdown.first?.profitKRW, 13_000, accuracy: 0.001)
+        XCTAssertEqual(summary.breakdown.first?.profitKRW ?? 0, 13_000, accuracy: 0.001)
     }
 
     func test_total_computesRate_fromCostBasis() {
