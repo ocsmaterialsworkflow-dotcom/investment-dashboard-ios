@@ -16,6 +16,8 @@ public enum KeychainKey: String, CaseIterable, Sendable {
     case kisAppKey      = "com.investapp.kis.appKey"
     case kisAppSecret   = "com.investapp.kis.appSecret"
     case kisAccessToken = "com.investapp.kis.accessToken"
+    case bokApiKey      = "com.investapp.bok.apiKey"      // 한국은행 ECOS 환율 API
+    case finnhubApiKey  = "com.investapp.finnhub.apiKey"  // 미국주식 시세·배당
 }
 
 public enum KeychainError: Error, Equatable {
